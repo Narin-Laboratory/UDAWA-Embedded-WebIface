@@ -51,17 +51,16 @@ function Gadadar() {
 	return (
 	  <div>
 		<header>
-			<article>
-				<nav>
-					<ul>
-						<li><a onClick={handleShowSetupForm} class="secondary" aria-label="Menu" data-discover="true" href="#">
-							<img src={SettingsIcon} alt="Settings" />
-						</a></li></ul>
-					<ul>
-						<li><strong>{t('udawa_model', { model: cfg.model })}</strong></li>
-					</ul>
-				</nav>
-			</article>
+			<nav>
+				<ul>
+					<li><a onClick={handleShowSetupForm} class="secondary" aria-label="Menu" data-discover="true" href="#">
+						<img src={SettingsIcon} alt="Settings" />
+					</a></li>
+				</ul>
+				<ul>
+					<li><strong>{t('udawa_model', { model: cfg.model })}</strong></li>
+				</ul>
+			</nav>
 			<IndicatorBar />
 		</header>
 		<main class="container">

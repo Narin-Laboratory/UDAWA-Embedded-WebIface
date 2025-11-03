@@ -37,7 +37,7 @@ export const AppStateProvider = ({ children }) => {
   });
   const [fsUpdate, setFsUpdate] = useState(null);
 
-  const initialSensorState = { current: 0, min: 0, max: 0, avg: 0, count: 0 };
+  const initialSensorState = { current: 0, min: 999, max: 0, avg: 0, count: 0 };
 
   const [shtSensor, setShtSensor] = useState({
     temp: initialSensorState,

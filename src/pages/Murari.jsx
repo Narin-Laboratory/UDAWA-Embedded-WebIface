@@ -18,17 +18,16 @@ const Murari = () => {
   return (
     <div>
       <header>
-        <article>
-          <nav>
-            <ul>
-              <li><a onClick={handleShowSetupForm} class="secondary" aria-label="Menu" data-discover="true" href="#">
-                <img src={SettingsIcon} alt="Settings" />
-              </a></li></ul>
-            <ul>
-              <li><strong>{t('udawa_model', { model: cfg.model })}</strong></li>
-            </ul>
-          </nav>
-        </article>
+        <nav>
+          <ul>
+            <li><a onClick={handleShowSetupForm} class="secondary" aria-label="Menu" data-discover="true" href="#">
+              <img src={SettingsIcon} alt="Settings" />
+            </a></li>
+          </ul>
+          <ul>
+            <li><strong>{t('udawa_model', { model: cfg.model })}</strong></li>
+          </ul>
+        </nav>
         <IndicatorBar />
       </header>
       <main class="container">
@@ -48,9 +47,11 @@ const Murari = () => {
         ) : (
           <div>
             <section>
-              <SensorCard name={t('temperature')} data={shtSensor.temp} unit="°C" />
-              <SensorCard name={t('humidity')} data={shtSensor.rh} unit="%" />
-              <SensorCard name={t('light_intensity')} data={bhSensor.lux} unit="lux" />
+              <div class="sensor-grid">
+                <SensorCard name='temperature' data={shtSensor.temp} unit="°C" />
+                <SensorCard name='humidity' data={shtSensor.rh} unit="%" />
+                <SensorCard name='light_intensity' data={bhSensor.lux} unit="lux" />
+              </div>
               <dialog open={showSetupForm && !finishedSetup}>
                 <article>
                   <SetupForm></SetupForm>
