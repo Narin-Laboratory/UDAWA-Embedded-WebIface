@@ -3,11 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { useAppState } from '../AppStateContext';
 import SetupForm from '../components/common/SetupForm';
 import SettingsIcon from '../assets/settings.svg';
-import WiFiIcon from '../assets/wifi.svg';
-import databaseIcon from '../assets/database.svg';
-import clockIcon from '../assets/clock.svg';
-import watchIcon from '../assets/watch.svg';
 import heartIcon from '../assets/heart.svg';
+import IndicatorBar from '../components/common/IndicatorBar';
 
 const Murari = () => {
   const { t } = useTranslation();
@@ -31,6 +28,7 @@ const Murari = () => {
             </ul>
           </nav>
         </article>
+        <IndicatorBar />
       </header>
       <main class="container">
         <dialog open={finishedSetup}>

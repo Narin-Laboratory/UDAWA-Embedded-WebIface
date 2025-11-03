@@ -3,56 +3,47 @@ import { useTranslation } from 'react-i18next';
 
 import '../style.css';
 import SettingsIcon from '../assets/settings.svg';
-import WiFiIcon from '../assets/wifi.svg';
-import databaseIcon from '../assets/database.svg';
-import clockIcon from '../assets/clock.svg';
-import watchIcon from '../assets/watch.svg';
 import heartIcon from '../assets/heart.svg';
 import ChannelSelector from '../components/gadadar/channelSelector';
 import { useAppState } from '../AppStateContext';
 import SetupForm from '../components/common/SetupForm';
 import PowerSensor from '../components/gadadar/powerSensor';
 import AlarmCard from '../components/gadadar/alarm';
+import IndicatorBar from '../components/common/IndicatorBar';
 
 function Gadadar() {
 	const { t } = useTranslation();
-	const { cfg, ws, authState, showSetupForm, setShowSetupForm, wsStatus, finishedSetup, setFinishedSetup } = useAppState();
+	const { cfg, ws, authState, showSetupForm, setShowSetupForm, finishedSetup, setFinishedSetup } = useAppState();
 	const [latestCfg, setLatestCfg] = useState(cfg); // State to hold latest cfg
 	const [powerSensor, setPowerSensor] = useState({amp: 0, volt: 0, watt: 0, pf: 0, freq: 0, ener: 0});
 	const [alarm, setAlarm] = useState({code: 0, time: ''});
-	const [sysInfo, setSysInfo] = useState({uptime: 0, heap: 0, datetime: 0, rssi: 0});
 
 	useEffect(() => {
-		// Function to update latestCfg whenever cfg changes
 		const updateCfg = () => {
 			setLatestCfg(cfg);
 		};
 
-		// Subscribe to WebSocket messages
 		if (ws.current) {
 			ws.current.addEventListener('message', (event) => {
 				const data = JSON.parse(event.data);
 				if (data.cfg) {
-					updateCfg(); // Update latestCfg when new config is received
+					updateCfg();
 				} else if (data.powerSensor) {
 					setPowerSensor(data.powerSensor);
 				} else if (data.alarm && data.alarm.code !== 0) {
 					setAlarm(data.alarm);
 				} else if (data.setFinishedSetup) {
 					setFinishedSetup(data.setFinishedSetup.fInit);
-				} else if (data.sysInfo) {
-					setSysInfo(data.sysInfo);
 				}
 			});
 		}
 
-		// Cleanup: Remove the event listener when component unmounts
 		return () => {
 			if (ws.current) {
 				ws.current.removeEventListener('message', updateCfg);
 			}
 		};
-	}, [cfg, ws]); // Run effect whenever cfg or ws changes
+	}, [cfg, ws]);
 
 	const handleShowSetupForm = () => {
 		setShowSetupForm(!showSetupForm);
@@ -71,22 +62,7 @@ function Gadadar() {
 					</ul>
 				</nav>
 			</article>
-			<div id="indicator-bar">
-				<div className={"parent-3c"}>
-					<div className={"indicater-item"}>
-						<img src={WiFiIcon} alt="WiFi" /> {sysInfo.rssi}%
-					</div>
-					<div className={"indicater-item"}>
-						<img src={databaseIcon} alt="heap" /> {(sysInfo.heap/1024).toFixed(0)}Kb
-					</div>
-					<div className={"indicater-item"}>
-						<img src={watchIcon} alt="uptime" /> {(sysInfo.uptime/1000).toFixed(0)}sec
-					</div>
-				</div>
-				<div className={"indicater-item"}>
-					<img src={clockIcon} alt="datetime" /> {sysInfo.datetime}
-				</div>
-			</div>
+			<IndicatorBar />
 		</header>
 		<main class="container">
 		<dialog open={finishedSetup}>
