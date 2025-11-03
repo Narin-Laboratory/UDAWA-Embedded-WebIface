@@ -7,7 +7,7 @@ import ChannelSelector from '../components/gadadar/channelSelector';
 import { useAppState } from '../AppStateContext';
 import SetupForm from '../components/common/SetupForm';
 import PowerSensor from '../components/gadadar/powerSensor';
-import AlarmCard from '../components/gadadar/alarm';
+import AlarmCard from '../components/common/AlarmCard';
 import IndicatorBar from '../components/common/IndicatorBar';
 import Footer from '../components/common/Footer';
 
