@@ -16,6 +16,7 @@
   "alarm_code_title": "🚨 Alarm Code {{code}}",
   "unknown_alarm_code": "Unknown alarm code",
   "alarm_time": "Alarm time: {{time}}",
+  "alarm_0": "Alarm code 0 received (testing).",
   "alarm_110": "The light sensor failed to initialize; please check the module integration and wiring.",
   "alarm_111": "The light sensor measurement is abnormal; please check the module integrity.",
   "alarm_112": "The light sensor measurement is showing an extreme value; please monitor the device's operation closely.",
