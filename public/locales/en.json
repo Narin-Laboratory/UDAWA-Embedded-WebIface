@@ -167,5 +167,7 @@
   "avg": "avg",
   "temperature": "Temperature",
   "humidity": "Humidity",
-  "light_intensity": "Light intensity"
+  "light_intensity": "Light intensity",
+  "tds": "TDS",
+  "ec": "EC"
 }

@@ -48,6 +48,15 @@ export const AppStateProvider = ({ children }) => {
     lux: getInitialSensorState(),
   });
 
+  const [tempSensor, setTempSensor] = useState({
+    temp: getInitialSensorState(),
+  });
+
+  const [tdsSensor, setTdsSensor] = useState({
+    tds: getInitialSensorState(),
+    ec: getInitialSensorState(),
+  });
+
   // Store WebSocket in a ref so it persists across re-renders
   const ws = useRef(null);
 
@@ -115,6 +124,15 @@ export const AppStateProvider = ({ children }) => {
         setBhSensor(prev => ({
           lux: updateSensorStats(prev.lux, data.bhSensor.lux)
         }));
+      } else if (data.tempSensor) {
+        setTempSensor(prev => ({
+          temp: updateSensorStats(prev.temp, data.tempSensor.temp)
+        }));
+      } else if (data.tdsSensor) {
+        setTdsSensor(prev => ({
+          tds: updateSensorStats(prev.tds, data.tdsSensor.tds),
+          ec: updateSensorStats(prev.ec, data.tdsSensor.ec)
+        }));
       }
     };
 
@@ -177,6 +195,8 @@ export const AppStateProvider = ({ children }) => {
     fsUpdate, setFsUpdate,
     shtSensor,
     bhSensor,
+    tempSensor,
+    tdsSensor,
   };
 
   return (

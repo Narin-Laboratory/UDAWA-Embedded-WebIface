@@ -2,13 +2,14 @@ import { h } from 'preact';
 import { useTranslation } from 'react-i18next';
 import { useAppState } from '../AppStateContext';
 import SetupForm from '../components/common/SetupForm';
+import SensorCard from '../components/common/SensorCard';
 import SettingsIcon from '../assets/settings.svg';
 import IndicatorBar from '../components/common/IndicatorBar';
 import Footer from '../components/common/Footer';
 
 const Damodar = () => {
   const { t } = useTranslation();
-  const { cfg, showSetupForm, setShowSetupForm, finishedSetup, wsAddress } = useAppState();
+  const { cfg, showSetupForm, setShowSetupForm, finishedSetup, wsAddress, tempSensor, tdsSensor } = useAppState();
 
   const handleShowSetupForm = () => {
     setShowSetupForm(!showSetupForm);
@@ -46,10 +47,11 @@ const Damodar = () => {
         ) : (
           <div>
             <section>
-              <article>
-                <h1>{t('damodar_dashboard_title')}</h1>
-                <p>{t('damodar_dashboard_placeholder')}</p>
-              </article>
+              <div class="sensor-grid">
+                <SensorCard name='temperature' data={tempSensor.temp} unit="°C" />
+                <SensorCard name='tds' data={tdsSensor.tds} unit="ppm" />
+                <SensorCard name='ec' data={tdsSensor.ec} unit="mS/cm" />
+              </div>
               <dialog open={showSetupForm && !finishedSetup}>
                 <article>
                   <SetupForm></SetupForm>

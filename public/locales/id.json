@@ -167,5 +167,7 @@
   "avg": "rata",
   "temperature": "Suhu",
   "humidity": "Kelembaban",
-  "light_intensity": "Intensitas Cahaya"
+  "light_intensity": "Intensitas Cahaya",
+  "tds": "TDS",
+  "ec": "EC"
 }

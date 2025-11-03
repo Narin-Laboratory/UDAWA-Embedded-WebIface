@@ -79,6 +79,10 @@
 	background-color: #4CAF50;
 }
 
+header > nav {
+  padding: 0px 15px;
+}
+
 .indicator-bar {
   display: flex;
   justify-content: space-between;
