@@ -5,6 +5,7 @@ import WiFiIcon from '../../assets/wifi.svg';
 import databaseIcon from '../../assets/database.svg';
 import clockIcon from '../../assets/clock.svg';
 import watchIcon from '../../assets/watch.svg';
+import batteryIcon from '../../assets/battery.svg';
 
 const IndicatorBar = () => {
   const { ws } = useAppState();
@@ -30,23 +31,28 @@ const IndicatorBar = () => {
   }, [ws]);
 
   return (
-    <div id="indicator-bar">
-      <div className={"parent-3c"}>
-        <div className={"indicater-item"}>
-          <img src={WiFiIcon} alt="WiFi" /> {sysInfo.rssi}%
+    <div class="indicator-bar">
+      <div class="indicator-group">
+        <div class="indicator-item">
+          <img src={WiFiIcon} alt="WiFi" />
+          <span>{sysInfo.rssi}%</span>
         </div>
-        <div className={"indicater-item"}>
-          {sysInfo.batt}%
+        <div class="indicator-item">
+          <img src={batteryIcon} alt="Battery" />
+          <span>{sysInfo.batt}%</span>
         </div>
-        <div className={"indicater-item"}>
-          <img src={databaseIcon} alt="heap" /> {(sysInfo.heap / 1024).toFixed(0)}Kb
+        <div class="indicator-item">
+          <img src={databaseIcon} alt="Heap" />
+          <span>{(sysInfo.heap / 1024).toFixed(0)}Kb</span>
         </div>
-        <div className={"indicater-item"}>
-          <img src={watchIcon} alt="uptime" /> {(sysInfo.uptime / 1000).toFixed(0)}sec
+        <div class="indicator-item">
+          <img src={watchIcon} alt="Uptime" />
+          <span>{(sysInfo.uptime / 1000).toFixed(0)}s</span>
         </div>
       </div>
-      <div className={"indicater-item"}>
-        <img src={clockIcon} alt="datetime" /> {sysInfo.datetime}
+      <div class="indicator-item">
+        <img src={clockIcon} alt="Datetime" />
+        <span>{sysInfo.datetime}</span>
       </div>
     </div>
   );
