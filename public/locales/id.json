@@ -161,5 +161,13 @@
   "fs_update_progress_complete": "{{progress}}% selesai",
   "fs_update_progress_bytes": "({{progress}} dari {{total}} byte)",
   "language_switcher_aria_label": "Pilih bahasa",
-  "language_switcher_placeholder": "Pilih bahasa..."
+  "language_switcher_placeholder": "Pilih bahasa...",
+  "min": "min",
+  "max": "max",
+  "avg": "rata",
+  "temperature": "Suhu",
+  "humidity": "Kelembaban",
+  "light_intensity": "Intensitas Cahaya",
+  "tds": "TDS",
+  "ec": "EC"
 }

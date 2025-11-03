@@ -161,5 +161,13 @@
   "fs_update_progress_complete": "{{progress}}% complete",
   "fs_update_progress_bytes": "({{progress}} of {{total}} bytes)",
   "language_switcher_aria_label": "Select language",
-  "language_switcher_placeholder": "Select language..."
+  "language_switcher_placeholder": "Select language...",
+  "min": "min",
+  "max": "max",
+  "avg": "avg",
+  "temperature": "Temperature",
+  "humidity": "Humidity",
+  "light_intensity": "Light intensity",
+  "tds": "TDS",
+  "ec": "EC"
 }
