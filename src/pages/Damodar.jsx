@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { useAppState } from '../AppStateContext';
 import SetupForm from '../components/common/SetupForm';
 import SettingsIcon from '../assets/settings.svg';
-import heartIcon from '../assets/heart.svg';
 import IndicatorBar from '../components/common/IndicatorBar';
+import Footer from '../components/common/Footer';
 
 const Damodar = () => {
   const { t } = useTranslation();
-  const { cfg, showSetupForm, setShowSetupForm, finishedSetup } = useAppState();
+  const { cfg, showSetupForm, setShowSetupForm, finishedSetup, wsAddress } = useAppState();
 
   const handleShowSetupForm = () => {
     setShowSetupForm(!showSetupForm);
@@ -27,7 +27,7 @@ const Damodar = () => {
             <li><strong>{t('udawa_model', { model: cfg.model })}</strong></li>
           </ul>
         </nav>
-        <IndicatorBar />
+        <IndicatorBar key={wsAddress} />
       </header>
       <main class="container">
         <dialog open={finishedSetup}>
@@ -59,16 +59,7 @@ const Damodar = () => {
           </div>
         )}
       </main>
-      <footer>
-        <section class="text-center mt-10">
-          <hr />
-          <div id="copyleft">
-            <div class="copyleft-item">
-              <a href="https://udawa.or.id" target="_blank"><img src={heartIcon} alt="heartIcon" /> {t('psti_undiknas')} <img src={heartIcon} alt="heartIcon" /></a>
-            </div>
-          </div>
-        </section>
-      </footer>
+      <Footer />
     </div>
   );
 };

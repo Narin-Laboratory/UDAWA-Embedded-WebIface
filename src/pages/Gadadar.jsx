@@ -3,17 +3,17 @@ import { useTranslation } from 'react-i18next';
 
 import '../style.css';
 import SettingsIcon from '../assets/settings.svg';
-import heartIcon from '../assets/heart.svg';
 import ChannelSelector from '../components/gadadar/channelSelector';
 import { useAppState } from '../AppStateContext';
 import SetupForm from '../components/common/SetupForm';
 import PowerSensor from '../components/gadadar/powerSensor';
 import AlarmCard from '../components/gadadar/alarm';
 import IndicatorBar from '../components/common/IndicatorBar';
+import Footer from '../components/common/Footer';
 
 function Gadadar() {
 	const { t } = useTranslation();
-	const { cfg, ws, authState, showSetupForm, setShowSetupForm, finishedSetup, setFinishedSetup } = useAppState();
+	const { cfg, ws, authState, showSetupForm, setShowSetupForm, finishedSetup, setFinishedSetup, wsAddress } = useAppState();
 	const [latestCfg, setLatestCfg] = useState(cfg); // State to hold latest cfg
 	const [powerSensor, setPowerSensor] = useState({amp: 0, volt: 0, watt: 0, pf: 0, freq: 0, ener: 0});
 	const [alarm, setAlarm] = useState({code: 0, time: ''});
@@ -61,7 +61,7 @@ function Gadadar() {
 					<li><strong>{t('udawa_model', { model: cfg.model })}</strong></li>
 				</ul>
 			</nav>
-			<IndicatorBar />
+			<IndicatorBar key={wsAddress} />
 		</header>
 		<main class="container">
 		<dialog open={finishedSetup}>
@@ -99,16 +99,7 @@ function Gadadar() {
 				</div>
 			)}
 		</main>
-		<footer>
-		  <section class="text-center mt-10">
-			<hr />
-			<div id="copyleft">
-				<div class="copyleft-item">
-					<a href="https://udawa.or.id" target="_blank"><img src={heartIcon} alt="heartIcon" /> {t('psti_undiknas')} <img src={heartIcon} alt="heartIcon" /></a>
-				</div>
-			</div>
-		  </section>
-		</footer>
+		<Footer />
 	  </div>
 	);
   }

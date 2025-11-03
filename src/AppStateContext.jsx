@@ -37,15 +37,15 @@ export const AppStateProvider = ({ children }) => {
   });
   const [fsUpdate, setFsUpdate] = useState(null);
 
-  const initialSensorState = { current: 0, min: 999, max: 0, avg: 0, count: 0 };
+  const getInitialSensorState = () => ({ current: 0, min: 999, max: 0, avg: 0, count: 0 });
 
   const [shtSensor, setShtSensor] = useState({
-    temp: initialSensorState,
-    rh: initialSensorState,
+    temp: getInitialSensorState(),
+    rh: getInitialSensorState(),
   });
 
   const [bhSensor, setBhSensor] = useState({
-    lux: initialSensorState,
+    lux: getInitialSensorState(),
   });
 
   // Store WebSocket in a ref so it persists across re-renders
