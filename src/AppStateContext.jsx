@@ -33,10 +33,21 @@ export const AppStateProvider = ({ children }) => {
   const [wsAddress, setWsAddress] = useState(window.location.host);
   const [energyPrice, setEnergyPrice] = useState(() => {
     const savedPrice = localStorage.getItem('energyPrice');
-    return savedPrice !== null ? JSON.parse(savedPrice) : { value: 1500, currency: 'IDR' }; 
+    return savedPrice !== null ? JSON.parse(savedPrice) : { value: 1500, currency: 'IDR' };
   });
   const [fsUpdate, setFsUpdate] = useState(null);
-  
+
+  const initialSensorState = { current: 0, min: 0, max: 0, avg: 0, count: 0 };
+
+  const [shtSensor, setShtSensor] = useState({
+    temp: initialSensorState,
+    rh: initialSensorState,
+  });
+
+  const [bhSensor, setBhSensor] = useState({
+    lux: initialSensorState,
+  });
+
   // Store WebSocket in a ref so it persists across re-renders
   const ws = useRef(null);
 
@@ -95,6 +106,16 @@ export const AppStateProvider = ({ children }) => {
       else if (data.FSUpdate) {
         setFsUpdate(data.FSUpdate);
       }
+      else if (data.shtSensor) {
+        setShtSensor(prev => ({
+          temp: updateSensorStats(prev.temp, data.shtSensor.temp),
+          rh: updateSensorStats(prev.rh, data.shtSensor.rh)
+        }));
+      } else if (data.bhSensor) {
+        setBhSensor(prev => ({
+          lux: updateSensorStats(prev.lux, data.bhSensor.lux)
+        }));
+      }
     };
 
     ws.current.onclose = () => {
@@ -123,6 +144,18 @@ export const AppStateProvider = ({ children }) => {
     }
   };
 
+  const updateSensorStats = (prev, newValue) => {
+    const newCount = prev.count + 1;
+    const newAvg = ((prev.avg * prev.count) + newValue) / newCount;
+    return {
+      current: newValue,
+      min: Math.min(prev.min, newValue),
+      max: Math.max(prev.max, newValue),
+      avg: newAvg,
+      count: newCount,
+    };
+  };
+
   const state = {
     cfg,
     setCfg,
@@ -141,7 +174,9 @@ export const AppStateProvider = ({ children }) => {
     ws,
     sendWsMessage,
     energyPrice, setEnergyPrice,
-    fsUpdate, setFsUpdate
+    fsUpdate, setFsUpdate,
+    shtSensor,
+    bhSensor,
   };
 
   return (

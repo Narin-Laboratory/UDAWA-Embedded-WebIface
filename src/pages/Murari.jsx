@@ -2,13 +2,14 @@ import { h } from 'preact';
 import { useTranslation } from 'react-i18next';
 import { useAppState } from '../AppStateContext';
 import SetupForm from '../components/common/SetupForm';
+import SensorCard from '../components/common/SensorCard';
 import SettingsIcon from '../assets/settings.svg';
 import heartIcon from '../assets/heart.svg';
 import IndicatorBar from '../components/common/IndicatorBar';
 
 const Murari = () => {
   const { t } = useTranslation();
-  const { cfg, showSetupForm, setShowSetupForm, finishedSetup } = useAppState();
+  const { cfg, showSetupForm, setShowSetupForm, finishedSetup, shtSensor, bhSensor } = useAppState();
 
   const handleShowSetupForm = () => {
     setShowSetupForm(!showSetupForm);
@@ -47,10 +48,9 @@ const Murari = () => {
         ) : (
           <div>
             <section>
-              <article>
-                <h1>{t('murari_dashboard_title')}</h1>
-                <p>{t('murari_dashboard_placeholder')}</p>
-              </article>
+              <SensorCard name={t('temperature')} data={shtSensor.temp} unit="°C" />
+              <SensorCard name={t('humidity')} data={shtSensor.rh} unit="%" />
+              <SensorCard name={t('light_intensity')} data={bhSensor.lux} unit="lux" />
               <dialog open={showSetupForm && !finishedSetup}>
                 <article>
                   <SetupForm></SetupForm>

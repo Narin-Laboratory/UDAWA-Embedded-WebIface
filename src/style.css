@@ -145,3 +145,46 @@ div.copyleft-item{
   padding: 5px;
   cursor: pointer;
 }
+
+.sensor-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 20px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.sensor-card h3 {
+  margin-top: 0;
+}
+
+.sensor-data {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.current-value {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.current-value .unit {
+  font-size: 1.5rem;
+  margin-left: 10px;
+}
+
+.stats {
+  display: flex;
+  flex-direction: column;
+}
+
+.stats div {
+  display: flex;
+  justify-content: space-between;
+  width: 100px;
+}
