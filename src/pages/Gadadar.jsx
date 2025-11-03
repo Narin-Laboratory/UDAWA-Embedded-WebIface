@@ -19,31 +19,30 @@ function Gadadar() {
 	const [alarm, setAlarm] = useState({code: 0, time: ''});
 
 	useEffect(() => {
-		const updateCfg = () => {
-			setLatestCfg(cfg);
+		const handleMessage = (event) => {
+			const data = JSON.parse(event.data);
+			if (data.cfg) {
+				setLatestCfg(cfg);
+			} else if (data.powerSensor) {
+				setPowerSensor(data.powerSensor);
+			} else if (data.alarm && data.alarm.code !== 0) {
+				setAlarm(data.alarm);
+			} else if (data.setFinishedSetup) {
+				setFinishedSetup(data.setFinishedSetup.fInit);
+			}
 		};
 
-		if (ws.current) {
-			ws.current.addEventListener('message', (event) => {
-				const data = JSON.parse(event.data);
-				if (data.cfg) {
-					updateCfg();
-				} else if (data.powerSensor) {
-					setPowerSensor(data.powerSensor);
-				} else if (data.alarm && data.alarm.code !== 0) {
-					setAlarm(data.alarm);
-				} else if (data.setFinishedSetup) {
-					setFinishedSetup(data.setFinishedSetup.fInit);
-				}
-			});
+		const currentWs = ws.current;
+		if (currentWs) {
+			currentWs.addEventListener('message', handleMessage);
 		}
 
 		return () => {
-			if (ws.current) {
-				ws.current.removeEventListener('message', updateCfg);
+			if (currentWs) {
+				currentWs.removeEventListener('message', handleMessage);
 			}
 		};
-	}, [cfg, ws]);
+	}, [cfg, ws, setFinishedSetup]);
 
 	const handleShowSetupForm = () => {
 		setShowSetupForm(!showSetupForm);
