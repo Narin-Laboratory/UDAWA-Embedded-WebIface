@@ -10,7 +10,7 @@ import watchIcon from '../assets/watch.svg';
 import heartIcon from '../assets/heart.svg';
 import ChannelSelector from '../components/gadadar/channelSelector';
 import { useAppState } from '../AppStateContext';
-import SetupForm from '../components/gadadar/setupForm';
+import SetupForm from '../components/common/SetupForm';
 import PowerSensor from '../components/gadadar/powerSensor';
 import AlarmCard from '../components/gadadar/alarm';
 
