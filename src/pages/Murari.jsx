@@ -1,4 +1,5 @@
 import { h } from 'preact';
+import { useState, useEffect } from 'preact/hooks';
 import { useTranslation } from 'react-i18next';
 import { useAppState } from '../AppStateContext';
 import SetupForm from '../components/common/SetupForm';
@@ -6,10 +7,32 @@ import SensorCard from '../components/common/SensorCard';
 import SettingsIcon from '../assets/settings.svg';
 import IndicatorBar from '../components/common/IndicatorBar';
 import Footer from '../components/common/Footer';
+import AlarmCard from '../components/common/AlarmCard';
 
 const Murari = () => {
   const { t } = useTranslation();
-  const { cfg, showSetupForm, setShowSetupForm, finishedSetup, shtSensor, bhSensor, wsAddress } = useAppState();
+  const { cfg, ws, showSetupForm, setShowSetupForm, finishedSetup, shtSensor, bhSensor, wsAddress } = useAppState();
+  const [alarm, setAlarm] = useState({ code: 0, time: '' });
+
+  useEffect(() => {
+    const handleMessage = (event) => {
+      const data = JSON.parse(event.data);
+      if (data.alarm && data.alarm.code !== 0) {
+        setAlarm(data.alarm);
+      }
+    };
+
+    const currentWs = ws.current;
+    if (currentWs) {
+      currentWs.addEventListener('message', handleMessage);
+    }
+
+    return () => {
+      if (currentWs) {
+        currentWs.removeEventListener('message', handleMessage);
+      }
+    };
+  }, [ws]);
 
   const handleShowSetupForm = () => {
     setShowSetupForm(!showSetupForm);
@@ -47,6 +70,7 @@ const Murari = () => {
         ) : (
           <div>
             <section>
+              <AlarmCard alarm={alarm} />
               <div class="sensor-grid">
                 <SensorCard name='temperature' data={shtSensor.temp} unit="°C" />
                 <SensorCard name='humidity' data={shtSensor.rh} unit="%" />

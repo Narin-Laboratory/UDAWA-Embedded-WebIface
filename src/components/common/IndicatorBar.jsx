@@ -30,25 +30,7 @@ const IndicatorBar = () => {
     };
   }, [ws.current]);
 
-  const formatDateTime = (timestamp) => {
-    if (!timestamp) {
-      return { date: 'Loading...', time: '' };
-    }
-    const d = new Date(timestamp * 1000);
-    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-    const day = String(d.getDate()).padStart(2, '0');
-    const month = months[d.getMonth()];
-    const year = d.getFullYear();
-    const weekday = weekdays[d.getDay()];
-
-    const date = `${weekday}, ${month} ${day} ${year}`;
-    const time = d.toLocaleTimeString('en-GB');
-    return { date, time };
-  };
-
-  const { date, time } = formatDateTime(sysInfo.datetime);
+  const { datetime } = sysInfo;
 
   return (
     <div class="indicator-bar">
@@ -72,8 +54,7 @@ const IndicatorBar = () => {
       </div>
       <div class="indicator-group date-group">
         <div class="date-time-wrapper">
-          <span class="date-text">{date}</span>
-          <span class="time-text">{time}</span>
+          <span class="date-text">{datetime}</span>
         </div>
       </div>
     </div>
