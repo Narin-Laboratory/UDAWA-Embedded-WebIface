@@ -8,7 +8,7 @@ const LanguageSwitcher = () => {
   };
 
   return (
-    <div class="language-switcher" data-theme="dark">
+    <div class="language-switcher">
       <select
         name="language-switcher"
         aria-label={t('language_switcher_aria_label')}

@@ -33,7 +33,7 @@ const IndicatorBar = () => {
   const { datetime } = sysInfo;
 
   return (
-    <div class="indicator-bar">
+    <article class="indicator-bar">
       <div class="indicator-group">
         <div class="indicator-item">
           <img src={WiFiIcon} alt="WiFi" />
@@ -57,7 +57,7 @@ const IndicatorBar = () => {
           <span class="date-text">{datetime}</span>
         </div>
       </div>
-    </div>
+    </article>
   );
 };
 

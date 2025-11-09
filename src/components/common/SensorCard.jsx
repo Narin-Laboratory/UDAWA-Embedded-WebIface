@@ -5,16 +5,18 @@ const SensorCard = ({ name, data, unit }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="sensor-card">
-      <div className="sensor-card-header">
+    <article className="sensor-card">
+      <header className="sensor-card-header">
         <h3>{t(name)}</h3>
-      </div>
+      </header>
       <div className="sensor-card-body">
         <div className="current-value">
           <span>{data.current.toFixed(2)}</span>
           <span className="unit">{unit}</span>
         </div>
-        <div className="stats">
+      </div>
+      <footer>
+      <div className="stats">
           <div className="stat-item">
             <span>{t('min')}</span>
             <span>{data.min.toFixed(2)}</span>
@@ -28,8 +30,8 @@ const SensorCard = ({ name, data, unit }) => {
             <span>{data.avg.toFixed(2)}</span>
           </div>
         </div>
-      </div>
-    </div>
+      </footer>
+    </article>
   );
 };
 
