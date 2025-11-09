@@ -10,20 +10,18 @@ import PowerSensor from '../components/gadadar/powerSensor';
 import AlarmCard from '../components/common/AlarmCard';
 import IndicatorBar from '../components/common/IndicatorBar';
 import Footer from '../components/common/Footer';
+import SetupCompletedPopup from '../components/common/SetupCompletedPopup';
 
 function Gadadar() {
 	const { t } = useTranslation();
 	const { cfg, ws, authState, showSetupForm, setShowSetupForm, finishedSetup, setFinishedSetup, wsAddress } = useAppState();
-	const [latestCfg, setLatestCfg] = useState(cfg); // State to hold latest cfg
 	const [powerSensor, setPowerSensor] = useState({amp: 0, volt: 0, watt: 0, pf: 0, freq: 0, ener: 0});
 	const [alarm, setAlarm] = useState({code: 0, time: ''});
 
 	useEffect(() => {
 		const handleMessage = (event) => {
 			const data = JSON.parse(event.data);
-			if (data.cfg) {
-				setLatestCfg(cfg);
-			} else if (data.powerSensor) {
+			if (data.powerSensor) {
 				setPowerSensor(data.powerSensor);
 			} else if (data.alarm && data.alarm.code !== 0) {
 				setAlarm(data.alarm);
@@ -63,16 +61,7 @@ function Gadadar() {
 			<IndicatorBar key={wsAddress} />
 		</header>
 		<main class="container">
-		<dialog open={finishedSetup}>
-			<article>
-				<header>
-				<p>
-					<strong>{t('setup_completed_title')}</strong>
-				</p>
-				</header>
-				<p dangerouslySetInnerHTML={{ __html: t('setup_completed_body', { wssid: latestCfg.wssid, hname: latestCfg.hname }) }} />
-			</article>
-		</dialog>
+		<SetupCompletedPopup />
 			{!cfg.fInit ? (
 				<section>
 					<SetupForm />

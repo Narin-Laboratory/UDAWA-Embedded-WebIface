@@ -8,6 +8,7 @@ import SettingsIcon from '../assets/settings.svg';
 import IndicatorBar from '../components/common/IndicatorBar';
 import Footer from '../components/common/Footer';
 import AlarmCard from '../components/common/AlarmCard';
+import SetupCompletedPopup from '../components/common/SetupCompletedPopup';
 
 const Murari = () => {
   const { t } = useTranslation();
@@ -54,15 +55,7 @@ const Murari = () => {
         <IndicatorBar key={wsAddress} />
       </header>
       <main class="container">
-        <dialog open={finishedSetup}>
-          <article>
-            <header>
-              <p>
-                <strong>{t('setup_completed_title')}</strong>
-              </p>
-            </header>
-          </article>
-        </dialog>
+        <SetupCompletedPopup />
         {!cfg.fInit ? (
           <section>
             <SetupForm />
