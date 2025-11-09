@@ -14,7 +14,7 @@ const SetupCompletedPopup = () => {
             <strong>{t('setup_completed_title')}</strong>
           </p>
         </header>
-        <p dangerouslySetInnerHTML={{ __html: t('setup_completed_body', { hname: cfg.hname, hwid: cfg.hwid }) }} />
+        <p dangerouslySetInnerHTML={{ __html: t('setup_completed_body', { tbAddr: cfg.tbAddr, hname: cfg.hname, hwid: cfg.hwid }) }} />
       </article>
     </dialog>
   );
